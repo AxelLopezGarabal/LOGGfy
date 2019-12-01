@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const log = require('../node_modules/log-to-file');
-
+const loglyModule = require('../model/logly')
 
 
 router.post('/', (req, res, next) => {
@@ -10,6 +10,7 @@ router.post('/', (req, res, next) => {
     if(bodyCheckLength && bodyCheckMessage){
         const message = req.body.message
         log(message, 'log.log');
+        loglyModule.writeLog(message);
         res.status(200).json(req.body);
     }
     else{
